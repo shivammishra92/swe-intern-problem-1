@@ -4,13 +4,17 @@ import bodyParser from "body-parser"
 import commandRoutes from "./routes/command.route.js"
 import dotenv from "dotenv"
 
+// dotenv.config({path:__dirname+'/.env'});
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 const URI = process.env.MONGODB_URI;
 
 try {
-    mongoose.connect(URI)
+    mongoose.connect(URI,{
+        useNewUrlParser: true,
+        useCreateIndex: true
+     })
     console.log(`Connected to MongoDB database!!`)
 } catch (error) {
     console.log(error);

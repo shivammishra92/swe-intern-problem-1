@@ -13,7 +13,7 @@ RUN npm install
 # Copy the rest of the application code to the container
 COPY . .
 # Expose the application port
-EXPOSE 8000
+EXPOSE 8080
 
 # Start the application
 CMD ["node", "index.js"]

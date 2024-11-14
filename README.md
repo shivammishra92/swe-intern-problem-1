@@ -28,28 +28,63 @@ Example command to search history:
 curl -X GET http://localhost:8080/api/v1/commands?keyword=ls
 ```
 
-> :warning: Should we enforce a minimum length for the command?
+## Prerequisites
 
-### Instructions
+To run this application, you’ll need:
 
-1. Feel free to use any programming language
-2. Use a database, not just an in-memory list or map
+- Docker and Docker Compose installed.
+- (Optional) Node.js and npm if you want to run the app without Docker.
 
-> Note: Any database is fine. Even in-memory `sqlite`.
+## Installation and Setup
 
-## Reviewer Experience
+1. Clone the repository:
 
-The reviewer should be able to run your application using
-`docker-compose`. Additional steps are fine but should be documented.
+```bash
+git clone -b dev https://github.com/sabhisharma-ise/swe-intern-problem-1.git
+cd swe-intern-problem-1
+```
+2. Set up environment variables: Create a `.env` file in the root directory with your PostgreSQL configuration:
 
-## Submission
+```bash
+DB_USER=your_db_username
+DB_PASSWORD=your_db_password
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=your_database_name
+```
 
-1. Create a [private fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) of this repository.
-2. Commit your code to the forked repository `dev` branch
-3. Create a pull request from your `dev` branch to your `main` branch
-4. Invite [@abhisek](https://github.com/abhisek) to your private fork repository
-5. Add `@abhisek` as a reviewer to the pull request
+3. Database Initialization: The application uses an `init.sql` file to initialize the database with a `commands` table containing `id`, `command`, and `timestamp` fields.
 
-## Questions?
+## Running the Application
 
-Create an [issue](https://github.com/safedep-hiring/swe-intern-problem-1/issues)
+### Using Docker Compose
+
+1. Build and start the application:
+
+    ```bash
+    docker-compose up --build
+    ```
+    This command will:
+
+    - Start a PostgreSQL database and initialize it with the required table structure.
+    - Start the Express server.
+
+2. Access the Application:
+
+    - The API will be available at http://localhost:3000.
+
+3. Stopping the application: To stop the application, press Ctrl+C in the terminal where it’s running, then run:
+
+    ```bash
+    docker-compose down
+    ```
+
+## Database Schema
+
+The commands table is structured as follows:
+
+| Column    | Type | Description
+| -------- | ------- | -----------
+| `id`  | `SERIAL`    | Unique ID for each command entry
+| `command` | `TEXT`     | The shell command
+| `timestamp`    | `TIMESTAMP`    | The timestamp for when the command was added

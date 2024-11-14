@@ -1,23 +1,13 @@
-version: '3'
+version: '3.8'
+
 services:
   app:
     build: .
+    container_name: node-app
     ports:
-      - "8000:8000"
+      - "8080:8080"
     env_file:
       - .env
-    # environment:
-    #   - PORT=8000
-    #   - MONGODB_URI=mongodb://mongo:27017/commandHistoryDB
-    depends_on:
-      - mongo
-
-  mongo:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
     volumes:
-      - mongo-data:/data/db
-
-volumes:
-  mongo-data:
+      - .:/app
+      - /app/node_modules
